@@ -1,0 +1,41 @@
+<?php
+ob_start();
+include_once 'dbConnection.php';
+$name = $_POST['name'];
+$desi = $_POST['desi'];
+$college = $_POST['college']; 
+$add = $_POST['address'];
+$email = $_POST['email'];
+$mobile = $_POST['mobile']; 
+$accom = $_POST['accom'];
+$payment = $_POST['payment'];
+$amount = $_POST['amount'];
+$name = stripslashes($name);
+$name = addslashes($name);
+$name = ucwords(strtolower($name));
+$desi = stripslashes($desi);
+$desi = addslashes($desi);
+$college = stripslashes($college);
+$college = addslashes($college);
+$add = stripslashes($add);
+$add = addslashes($add);
+$email = stripslashes($email);
+$email = addslashes($email);
+$mobile = stripslashes($mobile);
+$mobile = addslashes($mobile);
+$accom = stripslashes($accom);
+$accom = addslashes($accom);
+$payment = stripslashes($payment);
+$payment = addslashes($payment);
+$amount = stripslashes($amount);
+$amount = addslashes($amount);
+$f=fgets(fopen("u_gen.txt", "r"));
+$count=(int)$f;
+$count++;
+$id="NPESC15".$count;
+fputs(fopen("u_gen.txt", "w"),$count);
+
+mysqli_query($con,"INSERT INTO users VALUES  ('$id', '$name' ,'$desi','$college', '$add','$email' , '$mobile' , '$accom', '$payment', '$amount')");
+header("location:print.php?q=$id");
+ob_end_flush();
+?>
